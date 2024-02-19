@@ -3,7 +3,6 @@ package com.example.useremployee23v2.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.CascadeType;
 
 import java.time.LocalDateTime;
 
@@ -18,9 +17,8 @@ public class Employee {
     private Gender gender;
     private boolean vegetarian;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "useridfk", referencedColumnName = "userID", nullable = false)
-    @JsonBackReference
     private User user;
 
     public User getUser() {

@@ -23,14 +23,16 @@ public class InitData implements CommandLineRunner {
     EmployeeRepository employeeRepository;
 
     @Override
-    //@Transactional
+    @Transactional
     public void run(String... args) throws Exception {
+
+        if (userRepository.findAll().size()>0) return;
 
         try {
             User user1 = new User();
             user1.setEmail("em@em.dk");
             user1.setPassword("abac");
-            userRepository.save(user1);
+            //userRepository.save(user1);
 
             Employee emp1 = new Employee();
             emp1.setBorn(LocalDateTime.now());
@@ -39,6 +41,7 @@ public class InitData implements CommandLineRunner {
             emp1.setVegetarian(false);
             emp1.setUser(user1);
             user1.setEmployee(emp1);
+            userRepository.save(user1);
             employeeRepository.save(emp1);
 
             //employeeRepository.delete(emp1);
@@ -48,7 +51,6 @@ public class InitData implements CommandLineRunner {
             System.out.println("XXXXXXXXX Fejl i InitData");
             System.out.println(e.getMessage());
         }
-
 
     }
 }
